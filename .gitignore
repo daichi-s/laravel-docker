@@ -1,2 +1,2 @@
 .DS_Store
-mysql/var_lib_mysql
+docker/mysql/var_lib_mysql
