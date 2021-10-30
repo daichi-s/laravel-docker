@@ -44,6 +44,8 @@ install:
 	@cp .env-$(STAGE) .env
 	@make composer_install
 	@make yarn
+	@make yarn_run_dev
+	@make up
 
 #laravel8 インストール
 laravel:
