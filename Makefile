@@ -30,7 +30,7 @@ composer_install:
 	@$(DC) run --rm composer install
 composer_update:
 	@$(DC) run --rm composer update
-composer_require: # make composer_require P="ライブラリ名"
+composer_require: # make composer_require L="ライブラリ名"
 	@$(DC) run --rm composer require $(L)
 
 # yarn系
