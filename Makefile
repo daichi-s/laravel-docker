@@ -30,7 +30,7 @@ composer_install:
 	@$(DC) run --rm composer install
 composer_update:
 	@$(DC) run --rm composer update
-composer_require: # composer_require P="ライブラリ名"
+composer_require: # make composer_require P="ライブラリ名"
 	@$(DC) run --rm composer require $(L)
 
 # yarn系
@@ -47,4 +47,4 @@ install:
 
 #laravel8 インストール
 laravel:
-	@$(DC) exec composer composer create-project --prefer-dist laravel/laravel="8.*"
+	@$(DC) run --rm composer create-project --prefer-dist laravel/laravel="8.*"
