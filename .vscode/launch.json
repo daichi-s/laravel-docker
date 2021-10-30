@@ -7,7 +7,7 @@
         "port": 9003, // php.iniで設定したxdebugのportと同じにする
         "pathMappings": {
             // {docker上のdocument root}:{ローカルのdocument root} 
-            "/var/www/html":"/Users/{プロジェクトまでのパス}/app/laravel"
+            "/var/www/html":"/Users/daichi/work/docker/app/laravel"
         }
     }]
 }
