@@ -1,0 +1,13 @@
+{
+    "version": "0.2.0",
+    "configurations": [{
+        "name": "XDebug on docker",
+        "type": "php",
+        "request": "launch",
+        "port": 9003, // php.iniで設定したxdebugのportと同じにする
+        "pathMappings": {
+            // {docker上のdocument root}:{ローカルのdocument root} 
+            "/var/www/html":"/Users/{プロジェクトまでのパス}/app/laravel"
+        }
+    }]
+}
