@@ -1,5 +1,6 @@
 # make
 DC=docker-compose
+STAGE=local
 
 # Docker
 build:
@@ -18,26 +19,32 @@ ps:
 logs:
 	@$(DC) logs
 
-laravel:
-	@$(DC) exec php composer create-project --prefer-dist laravel/laravel="7.*"
-	mv laravel/* ./
-	mv laravel/.[^\.]* ./
-	rm -r laravel
+# コンテナ入る系
+php:
+	@$(DC) exec php bash
+node:
+	@$(DC) exec node bash
 
-setting-files:
-	@cp .env-$(STAGE) .env
-	@cp docker-compose-$(STAGE).yml docker-compose.yml
+# composer系
+composer_install:
+	@$(DC) run --rm composer install
+composer_update:
+	@$(DC) run --rm composer update
+composer_require: # composer_require P="ライブラリ名"
+	@$(DC) run --rm composer require $(L)
 
-install:
-	@make setting-files
-
-	@$(DC) exec php composer install
-
-artisan_:
-	@$(DC) exec php php artisan $(C)
-
-composer:
-	@$(DC) exec php composer $(C)
-
+# yarn系
 yarn:
-	@$(DC) run --rm yarn $(C)
+	@$(DC) exec node yarn
+yarn_run_dev:
+	@$(DC) exec node yarn run dev
+
+# 環境構築コマンド
+install:
+	@cp .env-$(STAGE) .env
+	@make composer_install
+	@make yarn
+
+#laravel8 インストール
+laravel:
+	@$(DC) exec composer composer create-project --prefer-dist laravel/laravel="8.*"
