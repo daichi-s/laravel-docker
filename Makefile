@@ -41,7 +41,8 @@ yarn_run_dev:
 
 # 環境構築コマンド
 install:
-	@cp .env-$(STAGE) .env
+	@$(DC) build --no-cache
+	@cp app/laravel/.env.$(STAGE) app/laravel/.env
 	@make composer_install
 	@make yarn
 	@make yarn_run_dev
