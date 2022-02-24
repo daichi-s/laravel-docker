@@ -26,16 +26,18 @@ node:
 	@$(DC) exec node bash
 
 # composer系
+composer: # make composer C="コマンド" （例: make composer C="require {ライブラリ名}"）
+	@$(DC) run --rm composer $(C)
 composer_install:
 	@$(DC) run --rm composer install
 composer_update:
 	@$(DC) run --rm composer update
-composer_require: # make composer_require L="ライブラリ名"
-	@$(DC) run --rm composer require $(L)
+composer_dump-autoload:
+	@$(DC) run --rm composer dump-autoload
 
 # yarn系
-yarn:
-	@$(DC) exec node yarn
+yarn: # make yarn C="コマンド" （例: make yarn C="add {ライブラリ名}"）
+	@$(DC) exec node yarn $(C)
 yarn_run_dev:
 	@$(DC) exec node yarn run dev
 
