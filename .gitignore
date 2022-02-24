@@ -1,2 +1,5 @@
 .DS_Store
 docker/mysql/var_lib_mysql
+docker/minio/data
+docker/nginx/conf.d/localhost-key.pem
+docker/nginx/conf.d/localhost.pem
