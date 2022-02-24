@@ -5,6 +5,30 @@
 $ make install
 ``` 
 
+## minioの初期設定
+1. http://localhost:9000にアクセス
+2. 以下の情報でログイン
+```
+Access Key: minio
+Secret Key: Password@1000
+```
+
+3. 右下の＋ボタンでバケット作成
+```
+バケット名: XXXX
+```
+
+4. バケットポリシーでアクセス権限を許可する
+バケット名の右の設定からEdit Policy -> Read and Write の権限を追加
+
+
+## Migration & Seeder
+以下コマンドを実装
+```
+$ make migrate_dev
+
+```
+
 ## SSL化
 1. 下記コマンドを実行
 ```
