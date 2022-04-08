@@ -54,11 +54,18 @@ services:
   minio:
     image: minio/minio
     ports:
-        - 9000:9000
-        - 9001:9001
+      - 9000:9000
+      - 9001:9001
     volumes:
-        - ./docker/minio/data:/export
+      - ./docker/minio/data:/export
     environment:
-        MINIO_ROOT_USER: minio
-        MINIO_ROOT_PASSWORD: Password@1000
-    command: ['server', '/export', '--console-address', ':9001']
+      MINIO_ROOT_USER: minio
+      MINIO_ROOT_PASSWORD: Password@1000
+    command: [ 'server', '/export', '--console-address', ':9001' ]
+
+  stripe-cli:
+    image: stripe/stripe-cli:v1.8.5
+    network_mode: host
+    environment:
+      STRIPE_API_KEY: ${STRIPE_SECRET_KEY}
+    command: listen --forward-to https://localhost/api/v1/stripe/webhook --skip-verify # 自己証明だと怒られるので「--skip-verify」を指定
