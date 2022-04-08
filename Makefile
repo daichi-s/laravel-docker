@@ -1,7 +1,7 @@
 # make
 DC=docker-compose
 STAGE=local
-LARAVEL_VERSION=8.*
+LARAVEL_VERSION=9.*
 
 # Docker
 build:
