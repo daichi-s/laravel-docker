@@ -57,6 +57,6 @@ install:
 	@make yarn
 	@make yarn_run_dev
 
-#laravel8 インストール
+#laravel インストール
 laravel:
 	@$(DC) run --rm composer create-project --prefer-dist laravel/laravel="${LARAVEL_VERSION}"
