@@ -1,6 +1,7 @@
 # make
 DC=docker-compose
 STAGE=local
+LARAVEL_VERSION=8.*
 
 # Docker
 build:
@@ -41,15 +42,21 @@ yarn: # make yarn C="コマンド" （例: make yarn C="add {ライブラリ名}
 yarn_run_dev:
 	@$(DC) exec node yarn run dev
 
+# stripe-cli
+stripe-cli:
+	@$(DC) exec stripe-cli $(C)
+stripe-listen:	# 自己証明だと怒られるので「--skip-verify」を指定
+	@$(DC) exec stripe-cli stripe listen --forward-to https://localhost/api/v1/stripe/webhook --skip-verify 
+
 # 環境構築コマンド
 install:
 	@$(DC) build --no-cache
 	@cp app/laravel/.env.$(STAGE) app/laravel/.env
+	@make up
 	@make composer_install
 	@make yarn
 	@make yarn_run_dev
-	@make up
 
 #laravel8 インストール
 laravel:
-	@$(DC) run --rm composer create-project --prefer-dist laravel/laravel="8.*"
+	@$(DC) run --rm composer create-project --prefer-dist laravel/laravel="${LARAVEL_VERSION}"
