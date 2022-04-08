@@ -59,4 +59,12 @@ $ mkcert localhost
 6. dockerコンテナ再起動
 ```
 $ make reload
-``` 
+```
+
+7. 確認
+
+```
+https://localhost
+
+上記に接続して、認証が保護されていればOK
+```
