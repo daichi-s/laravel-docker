@@ -2,6 +2,7 @@ version: "3"
 services:
   nginx:
     build: ./docker/nginx
+    platform: linux/amd64 # M1mac対応のため追記
     ports:
       - '80:80'
       - '443:443'
@@ -13,6 +14,7 @@ services:
 
   php:
     build: ./docker/php
+    platform: linux/amd64 # M1mac対応のため追記
     volumes:
       - ./app/laravel:/var/www/html:cached
       - ./docker/php/php.ini:/usr/local/etc/php/php.ini
@@ -20,6 +22,7 @@ services:
 
   mysql:
     image: mysql:8.0
+    platform: linux/amd64 # M1mac対応のため追記
     environment:
       MYSQL_DATABASE: db
       MYSQL_USER: docker
@@ -33,6 +36,7 @@ services:
 
   node:
     build: ./docker/node
+    platform: linux/amd64 # M1mac対応のため追記
     tty: true
     volumes:
       - ./app/laravel:/var/www/html:cached
@@ -40,6 +44,7 @@ services:
 
   composer:
     image: composer:2.1.9
+    platform: linux/amd64 # M1mac対応のため追記
     tty: true
     volumes:
       - ./app/laravel:/var/www/html:cached
@@ -48,11 +53,13 @@ services:
 
   mailhog:
     image: mailhog/mailhog
+    platform: linux/amd64 # M1mac対応のため追記
     ports:
       - 8025:8025
 
   minio:
     image: minio/minio
+    platform: linux/amd64 # M1mac対応のため追記
     ports:
       - 9000:9000
       - 9001:9001
@@ -65,6 +72,7 @@ services:
 
   stripe-cli:
     image: stripe/stripe-cli:v1.8.5
+    platform: linux/amd64 # M1mac対応のため追記
     network_mode: host
     environment:
       STRIPE_API_KEY: ${STRIPE_SECRET_KEY}
