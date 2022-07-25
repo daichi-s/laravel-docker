@@ -1,8 +1,8 @@
 # 手順書
-## 環境構築
+## Laravelインストール&セットアップ
 1. 以下コマンドを実行
 ```
-$ make install
+$ make laravel
 ``` 
 
 ## minioの初期設定

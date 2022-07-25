@@ -57,6 +57,12 @@ install:
 	@make yarn
 	@make yarn_run_dev
 
-#laravel インストール
+# laravelインストール&セットアップ
 laravel:
 	@$(DC) run --rm composer create-project --prefer-dist laravel/laravel="${LARAVEL_VERSION}"
+	@mv app/laravel/laravel .  
+	@rm -r app/laravel
+	@mv laravel app
+	@make up
+	@make yarn
+	@make yarn_run_dev
