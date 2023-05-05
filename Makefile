@@ -34,10 +34,11 @@ install:
 
 # laravelインストール&セットアップ
 laravel:
+	@$(DC) build --no-cache
+	@make up
 	@$(DC) exec app composer create-project --prefer-dist laravel/laravel="${LARAVEL_VERSION}"
 	@mv app/laravel/laravel .
 	@rm -r app/laravel
 	@mv laravel app
-	@make up
 	@$(DC) exec app yarn
 	@$(DC) exec app yarn dev
