@@ -1,7 +1,6 @@
 # make
 DC=docker-compose
-STAGE=local
-LARAVEL_VERSION=9.*
+LARAVEL_VERSION=10.*
 
 # Docker
 build:
@@ -20,49 +19,25 @@ ps:
 logs:
 	@$(DC) logs
 
-# コンテナ入る系
-php:
-	@$(DC) exec php bash
-node:
-	@$(DC) exec node bash
-
-# composer系
-composer: # make composer C="コマンド" （例: make composer C="require {ライブラリ名}"）
-	@$(DC) run --rm composer $(C)
-composer_install:
-	@$(DC) run --rm composer install
-composer_update:
-	@$(DC) run --rm composer update
-composer_dump-autoload:
-	@$(DC) run --rm composer dump-autoload
-
-# yarn系
-yarn: # make yarn C="コマンド" （例: make yarn C="add {ライブラリ名}"）
-	@$(DC) exec node yarn $(C)
-yarn_run_dev:
-	@$(DC) exec node yarn run dev
-
 # stripe-cli
-stripe-cli:
-	@$(DC) exec stripe-cli $(C)
 stripe-listen:	# 自己証明だと怒られるので「--skip-verify」を指定
 	@$(DC) exec stripe-cli stripe listen --forward-to https://localhost/api/v1/stripe/webhook --skip-verify 
 
 # 環境構築コマンド
 install:
 	@$(DC) build --no-cache
-	@cp app/laravel/.env.$(STAGE) app/laravel/.env
+	@cp app/laravel/.env.local app/laravel/.env
 	@make up
-	@make composer_install
-	@make yarn
-	@make yarn_run_dev
+	@$(DC) exec app composer_install
+	@$(DC) exec app yarn
+	@$(DC) exec app yarn dev
 
 # laravelインストール&セットアップ
 laravel:
-	@$(DC) run --rm composer create-project --prefer-dist laravel/laravel="${LARAVEL_VERSION}"
-	@mv app/laravel/laravel .  
+	@$(DC) exec app composer create-project --prefer-dist laravel/laravel="${LARAVEL_VERSION}"
+	@mv app/laravel/laravel .
 	@rm -r app/laravel
 	@mv laravel app
 	@make up
-	@make yarn
-	@make yarn_run_dev
+	@$(DC) exec app yarn
+	@$(DC) exec app yarn dev
