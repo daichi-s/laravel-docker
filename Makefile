@@ -30,7 +30,6 @@ install:
 	@make up
 	@$(DC) exec app composer_install
 	@$(DC) exec app yarn
-	@$(DC) exec app yarn dev
 
 # laravelインストール&セットアップ
 laravel:
@@ -41,4 +40,3 @@ laravel:
 	@rm -r app/laravel
 	@mv laravel app
 	@$(DC) exec app yarn
-	@$(DC) exec app yarn dev
