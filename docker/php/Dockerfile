@@ -4,6 +4,7 @@ FROM php:8.2-fpm
 RUN apt-get update && apt-get install -y \
         libzip-dev \
         libicu-dev \
+        unzip \
         nodejs \
         npm \
     && docker-php-ext-install \
