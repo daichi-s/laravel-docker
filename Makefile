@@ -28,7 +28,7 @@ install:
 	@$(DC) build --no-cache
 	@cp app/laravel/.env.local app/laravel/.env
 	@make up
-	@$(DC) exec app composer_install
+	@$(DC) exec app composer install
 	@$(DC) exec app yarn
 
 # laravelインストール&セットアップ
